@@ -9,6 +9,7 @@ function convertToRoman(num) {
         6: ['I', 1]
     };
 
+    // Special subtractive cases like 900, 400, etc.
     const specials = [
         ['CM', 900],
         ['CD', 400],
@@ -20,15 +21,16 @@ function convertToRoman(num) {
 
     let result = '';
 
-    // Handle special subtractive notation first
-    for (const [symbol, value] of specials) {
+    // First process subtractive notation
+    for (let i = 0; i < specials.length; i++) {
+        const [symbol, value] = specials[i];
         while (num >= value) {
             result += symbol;
             num -= value;
         }
     }
 
-    // Now handle the rest using the provided obj
+    // Then process the rest using obj
     for (let i = 0; i <= 6; i++) {
         const [symbol, value] = obj[i];
         while (num >= value) {
@@ -41,7 +43,7 @@ function convertToRoman(num) {
 }
 
 // Example test
-// console.log(convertToRoman(36)); // Should output: XXXVI
+// console.log(convertToRoman(36)); // Output: XXXVI
 
 // Do not edit below this line
 module.exports = convertToRoman;
